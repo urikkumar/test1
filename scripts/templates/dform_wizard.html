@@ -1,0 +1,1617 @@
+<!-- page specific plugin styles -->
+
+<link rel="stylesheet" href="assets/css/select2.css"/>
+<!-- ace styles -->
+<!--link rel="stylesheet" href="assets/css/ace.min.css" />
+<link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
+<link rel="stylesheet" href="assets/css/ace-skins.min.css" /-->
+<div class="breadcrumbs" id="breadcrumbs">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('breadcrumbs', 'fixed')
+
+        } catch (e) {
+        }
+    </script>
+    <ul class="breadcrumb">
+        <li>
+            <i class="icon-home home-icon"></i>
+            <a href="#">Home</a>
+        </li>
+        <li>
+            <a href="#">Forms</a>
+        </li>
+        <li class="active">dform_Wizard &amp; Validation</li>
+    </ul>
+    <!-- .breadcrumb -->
+
+    <div class="nav-search" id="nav-search">
+        <form class="form-search">
+           <span class="input-icon">
+               <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input"
+                      autocomplete="off"/>
+                <i class="icon-search nav-search-icon"></i>
+            </span>
+        </form>
+    </div>
+
+    <!-- #nav-search -->
+</div>
+<div class="page-content">
+<div class="page-header">
+    <h1>
+        dForm Wizard
+        <small>
+            <i class="icon-double-angle-right"></i>
+            and Validation
+        </small>
+    </h1>
+</div>
+
+<div class="container">
+    <form id="demo-1-form"></form>
+    <pre data-for="demo-1"></pre>
+</div>
+
+<script type="text/javascript" class="demo" id="demo-1">
+require(['aceExtra', 'bootstrap', 'typeahead', 'wizard', 'validate', 'addmethods', 'bootbox', 'maskedinput', 'select2', 'aceElements', 'dform'], function (aceExtra, bootstrap, typeahead, wizard, validate, addmethods, bootbox, maskedinput, select2, aceElements, dform) {
+
+    $(function () {
+        // Create a form from some JSON
+        $("#demo-1-form").dform({
+            "action": "index.html",
+            "method": "get",
+            "html": [
+                {
+                    "type": "div",
+                    "class": "row",
+                    "html": [
+                        {
+                            "type": "div",
+                            "class": "col-xs-12",
+                            "html": [
+                                {
+                                    "type": "h4",
+                                    "class": "lighter",
+                                    "html": [
+                                        {
+                                            "type": "i",
+                                            "class": "icon-hand-right icon-animated-hand-pointer blue"
+                                        },
+                                        {
+                                            "type": "a",
+                                            "href": "#modal-wizard",
+                                            "role": "button",
+                                            "class": "pink",
+                                            "data-toggle": "modal",
+                                            "html": "Wizard Inside a Modal Box"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "div",
+                                    "class": "hr hr-18 hr-double dotted"
+                                },
+                                {
+                                    "type": "div",
+                                    "class": "row-fluid",
+                                    "html": [
+                                        {
+                                            "type": "div",
+                                            "class": "span12",
+                                            "html": [
+                                                {
+                                                    "type": "div",
+                                                    "class": "widget-box",
+                                                    "html": [
+                                                        {
+                                                            "type": "div",
+                                                            "class": "widget-header widget-header-blue widget-header-flat",
+                                                            "html": [
+                                                                {
+                                                                    "type": "h4",
+                                                                    "class": "lighter",
+                                                                    "html": "New Item Wizard"
+                                                                },
+                                                                {
+                                                                    "type": "div",
+                                                                    "class": "widget-toolbar",
+                                                                    "html": [
+                                                                        {
+                                                                            "type": "label",
+                                                                            "html": [
+                                                                                {
+                                                                                    "type": "small",
+                                                                                    "class": "green",
+                                                                                    "html": [
+                                                                                        {
+                                                                                            "type": "b",
+                                                                                            "html": "Validation"
+                                                                                        }
+                                                                                    ]
+                                                                                },
+                                                                                {
+                                                                                    "type": "checkbox",
+                                                                                    "class": "ace ace-switch ace-switch-4",
+                                                                                    "id": "skip-validation"
+                                                                                },
+                                                                                {
+                                                                                    "type": "span",
+                                                                                    "class": "lbl"
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "div",
+                                                            "class": "widget-body",
+                                                            "html": [
+                                                                {
+                                                                    "type": "div",
+                                                                    "class": "widget-main",
+                                                                    "html": [
+                                                                        {
+                                                                            "type": "div",
+                                                                            "id": "fuelux-wizard",
+                                                                            "class": "row-fluid",
+                                                                            "data-target": "#step-container",
+                                                                            "html": [
+                                                                                {
+                                                                                    "type": "ul",
+                                                                                    "class": "wizard-steps",
+                                                                                    "html": [
+                                                                                        {
+                                                                                            "type": "li",
+                                                                                            "data-target": "#step1",
+                                                                                            "class": "active",
+                                                                                            "html": [
+                                                                                                {
+                                                                                                    "type": "span",
+                                                                                                    "class": "step",
+                                                                                                    "html": "1"
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "span",
+                                                                                                    "class": "title",
+                                                                                                    "html": "Validation states"
+                                                                                                }
+                                                                                            ]
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "li",
+                                                                                            "data-target": "#step2",
+                                                                                            "html": [
+                                                                                                {
+                                                                                                    "type": "span",
+                                                                                                    "class": "step",
+                                                                                                    "html": "2"
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "span",
+                                                                                                    "class": "title",
+                                                                                                    "html": "Alerts"
+                                                                                                }
+                                                                                            ]
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "li",
+                                                                                            "data-target": "#step3",
+                                                                                            "html": [
+                                                                                                {
+                                                                                                    "type": "span",
+                                                                                                    "class": "step",
+                                                                                                    "html": "3"
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "span",
+                                                                                                    "class": "title",
+                                                                                                    "html": "Payment Info"
+                                                                                                }
+                                                                                            ]
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "li",
+                                                                                            "data-target": "#step4",
+                                                                                            "html": [
+                                                                                                {
+                                                                                                    "type": "span",
+                                                                                                    "class": "step",
+                                                                                                    "html": "4"
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "span",
+                                                                                                    "class": "title",
+                                                                                                    "html": "Other Info"
+                                                                                                }
+                                                                                            ]
+                                                                                        }
+                                                                                    ]
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "type": "hr"
+                                                                        },
+                                                                        {
+                                                                            "type": "div",
+                                                                            "id": "step-container",
+                                                                            "class": "step-content row-fluid position-relative",
+                                                                            "html": [
+                                                                                {
+                                                                                    "type": "div",
+                                                                                    "class": "step-pane active",
+                                                                                    "id": "step1",
+                                                                                    "html": [
+                                                                                        {
+                                                                                            "type": "h3",
+                                                                                            "class": "lighter block green",
+                                                                                            "html": "Enter the following information"
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "form",
+                                                                                            "class": "form-horizontal",
+                                                                                            "id": "sample-form",
+                                                                                            "html": [
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "form-group has-warning",
+                                                                                                    "html": [
+                                                                                                        {
+                                                                                                            "type": "label",
+                                                                                                            "name": "inputWarning",
+                                                                                                            "class": "col-xs-12 col-sm-3 control-label no-padding-right",
+                                                                                                            "html": "Input with warning"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "div",
+                                                                                                            "class": "col-xs-12 col-sm-5",
+                                                                                                            "html": [
+                                                                                                                {
+                                                                                                                    "type": "span",
+                                                                                                                    "class": "block input-icon input-icon-right",
+                                                                                                                    "html": [
+                                                                                                                        {
+                                                                                                                            "type": "text",
+                                                                                                                            "id": "inputWarning",
+                                                                                                                            "class": "width-100"
+                                                                                                                        },
+                                                                                                                        {
+                                                                                                                            "type": "i",
+                                                                                                                            "class": "icon-leaf"
+                                                                                                                        }
+                                                                                                                    ]
+                                                                                                                }
+                                                                                                            ]
+
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "div",
+                                                                                                            "class": "help-block col-xs-12 col-sm-reset inline",
+                                                                                                            "html": " Warning tip help!"
+                                                                                                        }
+                                                                                                    ]
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "form-group has-error",
+                                                                                                    "html": [
+                                                                                                        {
+                                                                                                            "type": "label",
+                                                                                                            "name": "inputError",
+                                                                                                            "class": "col-xs-12 col-sm-3 col-md-3 control-label no-padding-right",
+                                                                                                            "html": "Input with error"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "div",
+                                                                                                            "class": "col-xs-12 col-sm-5",
+                                                                                                            "html": [
+                                                                                                                {
+                                                                                                                    "type": "span",
+                                                                                                                    "class": "block input-icon input-icon-right",
+                                                                                                                    "html": [
+                                                                                                                        {
+                                                                                                                            "type": "text",
+                                                                                                                            "id": "inputError",
+                                                                                                                            "class": "width-100"
+                                                                                                                        },
+                                                                                                                        {
+                                                                                                                            "type": "i",
+                                                                                                                            "class": "icon-remove-sign"
+                                                                                                                        }
+                                                                                                                    ]
+                                                                                                                }
+                                                                                                            ]
+
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "div",
+                                                                                                            "class": "help-block col-xs-12 col-sm-reset inline",
+                                                                                                            "html": " Error tip help!"
+                                                                                                        }
+                                                                                                    ]
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "form-group has-success",
+                                                                                                    "html": [
+                                                                                                        {
+                                                                                                            "type": "label",
+                                                                                                            "name": "inputSuccess",
+                                                                                                            "class": "col-xs-12 col-sm-3 control-label no-padding-right",
+                                                                                                            "html": "Input with success"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "div",
+                                                                                                            "class": "col-xs-12 col-sm-5",
+                                                                                                            "html": [
+                                                                                                                {
+                                                                                                                    "type": "span",
+                                                                                                                    "class": "block input-icon input-icon-right",
+                                                                                                                    "html": [
+                                                                                                                        {
+                                                                                                                            "type": "text",
+                                                                                                                            "id": "inputSuccess",
+                                                                                                                            "class": "width-100"
+                                                                                                                        },
+                                                                                                                        {
+                                                                                                                            "type": "i",
+                                                                                                                            "class": "icon-ok-sign"
+                                                                                                                        }
+                                                                                                                    ]
+                                                                                                                }
+                                                                                                            ]
+
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "div",
+                                                                                                            "class": "help-block col-xs-12 col-sm-reset inline",
+                                                                                                            "html": "Success tip help!"
+                                                                                                        }
+                                                                                                    ]
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "form-group has-info",
+                                                                                                    "html": [
+                                                                                                        {
+                                                                                                            "type": "label",
+                                                                                                            "name": "inputInfo",
+                                                                                                            "class": "col-xs-12 col-sm-3 control-label no-padding-right",
+                                                                                                            "html": "Input with success"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "div",
+                                                                                                            "class": "col-xs-12 col-sm-5",
+                                                                                                            "html": [
+                                                                                                                {
+                                                                                                                    "type": "span",
+                                                                                                                    "class": "block input-icon input-icon-right",
+                                                                                                                    "html": [
+                                                                                                                        {
+                                                                                                                            "type": "text",
+                                                                                                                            "id": "inputInfo",
+                                                                                                                            "class": "width-100"
+                                                                                                                        },
+                                                                                                                        {
+                                                                                                                            "type": "i",
+                                                                                                                            "class": "icon-info-sign"
+                                                                                                                        }
+                                                                                                                    ]
+                                                                                                                }
+                                                                                                            ]
+
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "div",
+                                                                                                            "class": "help-block col-xs-12 col-sm-reset inline",
+                                                                                                            "html": "Info tip help!"
+                                                                                                        }
+                                                                                                    ]
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "form-group",
+                                                                                                    "html": [
+                                                                                                        {
+                                                                                                            "type": "label",
+                                                                                                            "name": "inputError2",
+                                                                                                            "class": "col-xs-12 col-sm-3 control-label no-padding-right",
+                                                                                                            "html": "Input with error"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "div",
+                                                                                                            "class": "col-xs-12 col-sm-5",
+                                                                                                            "html": [
+                                                                                                                {
+                                                                                                                    "type": "span",
+                                                                                                                    "class": "input-icon block",
+                                                                                                                    "html": [
+                                                                                                                        {
+                                                                                                                            "type": "text",
+                                                                                                                            "id": "inputError2",
+                                                                                                                            "class": "width-100"
+                                                                                                                        },
+                                                                                                                        {
+                                                                                                                            "type": "i",
+                                                                                                                            "class": "icon-remove-sign red"
+                                                                                                                        }
+                                                                                                                    ]
+                                                                                                                }
+                                                                                                            ]
+
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "div",
+                                                                                                            "class": "help-block col-xs-12 col-sm-reset inline",
+                                                                                                            "html": "Error tip help!"
+                                                                                                        }
+                                                                                                    ]
+                                                                                                }
+                                                                                            ]
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "form",
+                                                                                            "class": "form-horizontal hide",
+                                                                                            "id": "validation-form",
+                                                                                            "method": "get",
+                                                                                            "html": [
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "form-group",
+                                                                                                    "html": [
+                                                                                                        {
+                                                                                                            "type": "label",
+                                                                                                            "class": "control-label col-xs-12 col-sm-3 no-padding-right",
+                                                                                                            "for": "email",
+                                                                                                            "html": "Email Address:"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "div",
+                                                                                                            "class": "col-xs-12 col-sm-9",
+                                                                                                            "html": [
+                                                                                                                {
+                                                                                                                    "type": "div",
+                                                                                                                    "class": "clearfix",
+                                                                                                                    "html": [
+                                                                                                                        {
+                                                                                                                            "type": "email",
+                                                                                                                            "name": "email",
+                                                                                                                            "id": "email",
+                                                                                                                            "class": "col-xs-12 col-sm-6"
+                                                                                                                        }
+                                                                                                                    ]
+                                                                                                                }
+                                                                                                            ]
+                                                                                                        }
+                                                                                                    ]
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "space-2"
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "form-group",
+                                                                                                    "html": [
+                                                                                                        {
+                                                                                                            "type": "label",
+                                                                                                            "class": "control-label col-xs-12 col-sm-3 no-padding-right",
+                                                                                                            "for": "password",
+                                                                                                            "html": "Password:"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "div",
+                                                                                                            "class": "col-xs-12 col-sm-9",
+                                                                                                            "html": [
+                                                                                                                {
+                                                                                                                    "type": "div",
+                                                                                                                    "class": "clearfix",
+                                                                                                                    "html": [
+                                                                                                                        {
+                                                                                                                            "type": "password",
+                                                                                                                            "name": "password",
+                                                                                                                            "id": "password",
+                                                                                                                            "class": "col-xs-12 col-sm-4"
+                                                                                                                        }
+                                                                                                                    ]
+                                                                                                                }
+                                                                                                            ]
+                                                                                                        }
+                                                                                                    ]
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "space-2"
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "form-group",
+                                                                                                    "html": [
+                                                                                                        {
+                                                                                                            "type": "label",
+                                                                                                            "class": "control-label col-xs-12 col-sm-3 no-padding-right",
+                                                                                                            "for": "password2",
+                                                                                                            "html": "Confirm Password:"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "div",
+                                                                                                            "class": "col-xs-12 col-sm-9",
+                                                                                                            "html": [
+                                                                                                                {
+                                                                                                                    "type": "div",
+                                                                                                                    "class": "clearfix",
+                                                                                                                    "html": [
+                                                                                                                        {
+                                                                                                                            "type": "password",
+                                                                                                                            "name": "password2",
+                                                                                                                            "id": "password2",
+                                                                                                                            "class": "col-xs-12 col-sm-4"
+                                                                                                                        }
+                                                                                                                    ]
+                                                                                                                }
+                                                                                                            ]
+                                                                                                        }
+                                                                                                    ]
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "hr hr-dotted"
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "form-group",
+                                                                                                    "html": [
+                                                                                                        {
+                                                                                                            "type": "label",
+                                                                                                            "class": "control-label col-xs-12 col-sm-3 no-padding-right",
+                                                                                                            "for": "name",
+                                                                                                            "html": "Company Name:"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "div",
+                                                                                                            "class": "col-xs-12 col-sm-9",
+                                                                                                            "html": [
+                                                                                                                {
+                                                                                                                    "type": "div",
+                                                                                                                    "class": "clearfix",
+                                                                                                                    "html": [
+                                                                                                                        {
+                                                                                                                            "type": "text",
+                                                                                                                            "name": "name",
+                                                                                                                            "id": "name",
+                                                                                                                            "class": "col-xs-12 col-sm-5"
+                                                                                                                        }
+                                                                                                                    ]
+                                                                                                                }
+                                                                                                            ]
+                                                                                                        }
+                                                                                                    ]
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "form-group",
+                                                                                                    "html": [
+                                                                                                        {
+                                                                                                            "type": "label",
+                                                                                                            "class": "control-label col-xs-12 col-sm-3 no-padding-right",
+                                                                                                            "for": "phone",
+                                                                                                            "html": "Phone Number:"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "div",
+                                                                                                            "class": "col-xs-12 col-sm-9",
+                                                                                                            "html": [
+                                                                                                                {
+                                                                                                                    "type": "div",
+                                                                                                                    "class": "input-group",
+                                                                                                                    "html": [
+                                                                                                                        {
+                                                                                                                            "type": "span",
+                                                                                                                            "class": "input-group-addon",
+                                                                                                                            "html": [
+                                                                                                                                {
+                                                                                                                                    "type": "i",
+                                                                                                                                    "class": "icon-phone"
+                                                                                                                                }
+                                                                                                                            ]
+                                                                                                                        },
+                                                                                                                        {
+                                                                                                                            "type": "tel",
+                                                                                                                            "name": "phone",
+                                                                                                                            "id": "phone"
+                                                                                                                        }
+                                                                                                                    ]
+                                                                                                                }
+                                                                                                            ]
+                                                                                                        }
+                                                                                                    ]
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "space-2"
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "form-group",
+                                                                                                    "html": [
+                                                                                                        {
+                                                                                                            "type": "label",
+                                                                                                            "class": "control-label col-xs-12 col-sm-3 no-padding-right",
+                                                                                                            "for": "url",
+                                                                                                            "html": "Company URL:"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "div",
+                                                                                                            "class": "col-xs-12 col-sm-9",
+                                                                                                            "html": [
+                                                                                                                {
+                                                                                                                    "type": "div",
+                                                                                                                    "class": "clearfix",
+                                                                                                                    "html": [
+                                                                                                                        {
+                                                                                                                            "type": "url",
+                                                                                                                            "name": "url",
+                                                                                                                            "id": "url",
+                                                                                                                            "class": "col-xs-12 col-sm-8"
+                                                                                                                        }
+                                                                                                                    ]
+                                                                                                                }
+                                                                                                            ]
+                                                                                                        }
+                                                                                                    ]
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "hr hr-dotted"
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "form-group",
+                                                                                                    "html": [
+                                                                                                        {
+                                                                                                            "type": "label",
+                                                                                                            "class": "control-label col-xs-12 col-sm-3 no-padding-right",
+                                                                                                            "html": "Subscribe to"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "div",
+                                                                                                            "class": "col-xs-12 col-sm-9",
+                                                                                                            "html": [
+                                                                                                                {
+                                                                                                                    "type": "div",
+                                                                                                                    "html": [
+                                                                                                                        {
+                                                                                                                            "type": "label",
+                                                                                                                            "html": [
+                                                                                                                                {
+                                                                                                                                    "type": "checkbox",
+                                                                                                                                    "name": "subscription",
+                                                                                                                                    "value": "1",
+                                                                                                                                    "class": "ace"
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                    "type": "span",
+                                                                                                                                    "class": "lbl",
+                                                                                                                                    'html': "Latest news and announcements"
+                                                                                                                                }
+                                                                                                                            ]
+                                                                                                                        }
+                                                                                                                    ]
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "type": "div",
+                                                                                                                    "html": [
+                                                                                                                        {
+                                                                                                                            "type": "label",
+                                                                                                                            "html": [
+                                                                                                                                {
+                                                                                                                                    "type": "checkbox",
+                                                                                                                                    "name": "subscription",
+                                                                                                                                    "value": "2",
+                                                                                                                                    "class": "ace"
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                    "type": "span",
+                                                                                                                                    "class": "lbl",
+                                                                                                                                    'html': "Product offers and discounts"
+                                                                                                                                }
+                                                                                                                            ]
+                                                                                                                        }
+                                                                                                                    ]
+                                                                                                                }
+                                                                                                            ]
+
+                                                                                                        }
+                                                                                                    ]
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "space-2"
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "form-group",
+                                                                                                    "html": [
+                                                                                                        {
+                                                                                                            "type": "label",
+                                                                                                            "class": "control-label col-xs-12 col-sm-3 no-padding-right",
+                                                                                                            "html": "Gender"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "div",
+                                                                                                            "class": "col-xs-12 col-sm-9",
+                                                                                                            "html": [
+                                                                                                                {
+                                                                                                                    "type": "div",
+                                                                                                                    "html": [
+                                                                                                                        {
+                                                                                                                            "type": "label",
+                                                                                                                            "class": "blue",
+                                                                                                                            "html": [
+                                                                                                                                {
+                                                                                                                                    "type": "radio",
+                                                                                                                                    "name": "gender",
+                                                                                                                                    "value": "1",
+                                                                                                                                    "class": "ace"
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                    "type": "span",
+                                                                                                                                    "class": "lbl",
+                                                                                                                                    'html': "Male"
+                                                                                                                                }
+                                                                                                                            ]
+                                                                                                                        }
+                                                                                                                    ]
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "type": "div",
+                                                                                                                    "html": [
+                                                                                                                        {
+                                                                                                                            "type": "label",
+                                                                                                                            "class": "blue",
+                                                                                                                            "html": [
+                                                                                                                                {
+                                                                                                                                    "type": "radio",
+                                                                                                                                    "name": "gender",
+                                                                                                                                    "value": "2",
+                                                                                                                                    "class": "ace"
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                    "type": "span",
+                                                                                                                                    "class": "lbl",
+                                                                                                                                    'html': "Female"
+                                                                                                                                }
+                                                                                                                            ]
+                                                                                                                        }
+                                                                                                                    ]
+                                                                                                                }
+                                                                                                            ]
+
+                                                                                                        }
+                                                                                                    ]
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "hr hr-dotted"
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "form-group",
+                                                                                                    "html": [
+                                                                                                        {
+                                                                                                            "type": "label",
+                                                                                                            "class": "control-label col-xs-12 col-sm-3 no-padding-right",
+                                                                                                            "for": "state",
+                                                                                                            "html": "State"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "div",
+                                                                                                            "class": "col-xs-12 col-sm-9",
+                                                                                                            "html": [
+                                                                                                                {
+                                                                                                                    "type": "select",
+                                                                                                                    "class": "select2",
+                                                                                                                    "name": "state",
+                                                                                                                    "id": "state",
+                                                                                                                    "data-placeholder": "Click to Choose...",
+                                                                                                                    "options": {
+                                                                                                                        "": "&nbsp;",
+                                                                                                                        "AL": "Alabama",
+                                                                                                                        "AK": "Alaska",
+                                                                                                                        "AZ": "Arizona",
+                                                                                                                        "AR": "Arkansas",
+                                                                                                                        "CA": "California",
+                                                                                                                        "CO": "Colorado",
+                                                                                                                        "CT": "Connecticut",
+                                                                                                                        "DE": "Delaware",
+                                                                                                                        "FL": "Florida",
+                                                                                                                        "GA": "Georgia",
+                                                                                                                        "HI": "Hawaii",
+                                                                                                                        "ID": "Idaho",
+                                                                                                                        "IL": "Illinois",
+                                                                                                                        "IN": "Indiana",
+                                                                                                                        "IA": "Iowa",
+                                                                                                                        "KS": "Kansas",
+                                                                                                                        "KY": "Kentucky",
+                                                                                                                        "LA": "Louisiana",
+                                                                                                                        "ME": "Maine",
+                                                                                                                        "MD": "Maryland",
+                                                                                                                        "MA": "Massachusetts",
+                                                                                                                        "MI": "Michigan",
+                                                                                                                        "MN": "Minnesota",
+                                                                                                                        "MS": "Mississippi",
+                                                                                                                        "MO": "Missouri",
+                                                                                                                        "MT": "Montana",
+                                                                                                                        "NE": "Nebraska",
+                                                                                                                        "NV": "Nevada",
+                                                                                                                        "NH": "New Hampshire",
+                                                                                                                        "NJ": "New Jersey",
+                                                                                                                        "NM": "New Mexico",
+                                                                                                                        "NY": "New York",
+                                                                                                                        "NC": "North Carolina",
+                                                                                                                        "ND": "North Dakota",
+                                                                                                                        "OH": "Ohio",
+                                                                                                                        "OK": "Oklahoma",
+                                                                                                                        "OR": "Oregon",
+                                                                                                                        "PA": "Pennsylvania",
+                                                                                                                        "RI": "Rhode Island",
+                                                                                                                        "SC": "South Carolina",
+                                                                                                                        "SD": "South Dakota",
+                                                                                                                        "TN": "Tennessee",
+                                                                                                                        "TX": "Texas",
+                                                                                                                        "UT": "Utah",
+                                                                                                                        "VT": "Vermont",
+                                                                                                                        "VA": "Virginia",
+                                                                                                                        "WA": "Washington",
+                                                                                                                        "WV": "West Virginia",
+                                                                                                                        "WI": "Wisconsin",
+                                                                                                                        "WY": "Wyoming"
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            ]
+                                                                                                        }
+                                                                                                    ]
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "space-2"
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "form-group",
+                                                                                                    "html": [
+                                                                                                        {
+                                                                                                            "type": "label",
+                                                                                                            "class": "control-label col-xs-12 col-sm-3 no-padding-right",
+                                                                                                            "for": "platform",
+                                                                                                            "html": "Platform"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "div",
+                                                                                                            "class": "col-xs-12 col-sm-9",
+                                                                                                            "html": [
+                                                                                                                {
+                                                                                                                    "type": "div",
+                                                                                                                    "class": "clearfix",
+                                                                                                                    "html": [
+                                                                                                                        {
+
+                                                                                                                            "type": "select",
+                                                                                                                            "class": "input-medium",
+                                                                                                                            "name": "platform",
+                                                                                                                            "id": "platform",
+                                                                                                                            "options": {
+                                                                                                                                "": "------------",
+                                                                                                                                "linux": "Linux",
+                                                                                                                                "windows": "Windows",
+                                                                                                                                "mac": "Mac OS",
+                                                                                                                                "ios": "iOS",
+                                                                                                                                "android": "Android"
+                                                                                                                            }
+
+                                                                                                                        }
+                                                                                                                    ]
+                                                                                                                }
+                                                                                                            ]
+
+                                                                                                        }
+                                                                                                    ]
+                                                                                                },
+
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "space-2"
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "form-group",
+                                                                                                    "html": [
+                                                                                                        {
+                                                                                                            "type": "label",
+                                                                                                            "class": "control-label col-xs-12 col-sm-3 no-padding-right",
+                                                                                                            "for": "comment",
+                                                                                                            "html": "Comment"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "div",
+                                                                                                            "class": "col-xs-12 col-sm-9",
+                                                                                                            "html": [
+                                                                                                                {
+                                                                                                                    "type": "div",
+                                                                                                                    "class": "clearfix",
+                                                                                                                    "html": [
+                                                                                                                        {
+                                                                                                                            "type": "textarea",
+                                                                                                                            "class": "input-xlarge",
+                                                                                                                            "name": "comment",
+                                                                                                                            "id": "comment"
+                                                                                                                        }
+                                                                                                                    ]
+                                                                                                                }
+                                                                                                            ]
+                                                                                                        }
+                                                                                                    ]
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "space-8"
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "form-group",
+                                                                                                    "html": [
+                                                                                                        {
+                                                                                                            "type": "div",
+                                                                                                            "class": "col-xs-12 col-sm-4 col-sm-offset-3",
+                                                                                                            "html": [
+                                                                                                                {
+                                                                                                                    "type": "label",
+                                                                                                                    "html": [
+                                                                                                                        {
+                                                                                                                            "type": "checkbox",
+                                                                                                                            "name": "agree",
+                                                                                                                            "id": "agree",
+                                                                                                                            "class": "ace"
+
+                                                                                                                        },
+                                                                                                                        {
+                                                                                                                            "type": "span",
+                                                                                                                            "class": "lbl",
+                                                                                                                            "html": "I accept the policy"
+                                                                                                                        }
+                                                                                                                    ]
+                                                                                                                }
+                                                                                                            ]
+                                                                                                        }
+                                                                                                    ]
+                                                                                                }
+                                                                                            ]
+
+                                                                                        }
+
+
+                                                                                    ]
+                                                                                },
+
+                                                                                {
+                                                                                    "type": "div",
+                                                                                    "class": "step-pane",
+                                                                                    "id": "step2",
+                                                                                    "html": [
+                                                                                        {
+                                                                                            "type": "div",
+                                                                                            "class": "row-fluid",
+                                                                                            "html": [
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "alert alert-success",
+                                                                                                    "html": [
+                                                                                                        {
+                                                                                                            "type": "button",
+                                                                                                            "class": "close",
+                                                                                                            "data-dismiss": "alert",
+                                                                                                            "html": [
+                                                                                                                {
+                                                                                                                    "type": "i",
+                                                                                                                    "class": "icon-remove"
+                                                                                                                }
+                                                                                                            ]
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "strong",
+                                                                                                            "html": [
+                                                                                                                {
+                                                                                                                    "type": "i",
+                                                                                                                    "class": "icon-ok",
+                                                                                                                    "html": "Well done!"
+                                                                                                                }
+                                                                                                            ]
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "span",
+                                                                                                            "html": "You successfully read this important alert message."
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "br"
+                                                                                                        }
+                                                                                                    ]
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "alert alert-danger",
+                                                                                                    "html": [
+                                                                                                        {
+                                                                                                            "type": "button",
+                                                                                                            "class": "close",
+                                                                                                            "data-dismiss": "alert",
+                                                                                                            "html": [
+                                                                                                                {
+                                                                                                                    "type": "i",
+                                                                                                                    "class": "icon-remove"
+                                                                                                                }
+                                                                                                            ]
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "strong",
+                                                                                                            "html": [
+                                                                                                                {
+                                                                                                                    "type": "i",
+                                                                                                                    "class": "icon-remove",
+                                                                                                                    "html": "Oh snap!"
+                                                                                                                }
+                                                                                                            ]
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "span",
+                                                                                                            "html": "Change a few things up and try submitting again."
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "br"
+                                                                                                        }
+                                                                                                    ]
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "alert alert-warning",
+                                                                                                    "html": [
+                                                                                                        {
+                                                                                                            "type": "button",
+                                                                                                            "class": "close",
+                                                                                                            "data-dismiss": "alert",
+                                                                                                            "html": [
+                                                                                                                {
+                                                                                                                    "type": "i",
+                                                                                                                    "class": "icon-remove"
+                                                                                                                }
+                                                                                                            ]
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "strong",
+                                                                                                            "html": "Warning!"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "span",
+                                                                                                            "html": "Best check yo self, you're not looking too good."
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "br"
+                                                                                                        }
+                                                                                                    ]
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "div",
+                                                                                                    "class": "alert alert-info",
+                                                                                                    "html": [
+                                                                                                        {
+                                                                                                            "type": "button",
+                                                                                                            "class": "close",
+                                                                                                            "data-dismiss": "alert",
+                                                                                                            "html": [
+                                                                                                                {
+                                                                                                                    "type": "i",
+                                                                                                                    "class": "icon-remove"
+                                                                                                                }
+                                                                                                            ]
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "strong",
+                                                                                                            "html": "Heads up!"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "span",
+                                                                                                            "html": "This alert needs your attention, but it's not super important."
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "br"
+                                                                                                        }
+                                                                                                    ]
+                                                                                                }
+
+                                                                                            ]
+                                                                                        }
+                                                                                    ]
+                                                                                },
+                                                                                {
+                                                                                    "type": "div",
+                                                                                    "class": "step-pane",
+                                                                                    "id": "step3",
+                                                                                    "html": [
+                                                                                        {
+                                                                                            "type": "div",
+                                                                                            "class": "center",
+                                                                                            "html": [
+                                                                                                {
+                                                                                                    "type": "h3",
+                                                                                                    "class": "blue lighter",
+                                                                                                    "html": "This is step 3"
+                                                                                                }
+                                                                                            ]
+                                                                                        }
+                                                                                    ]
+                                                                                },
+                                                                                {
+                                                                                    "type": "div",
+                                                                                    "class": "step-pane",
+                                                                                    "id": "step4",
+                                                                                    "html": [
+                                                                                        {
+                                                                                            "type": "div",
+                                                                                            "class": "center",
+                                                                                            "html": [
+                                                                                                {
+                                                                                                    "type": "h3",
+                                                                                                    "class": "green",
+                                                                                                    "html": "Congrats!"
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "span",
+                                                                                                    "html": "Your product is ready to ship! Click finish to continue!"
+                                                                                                }
+                                                                                            ]
+                                                                                        }
+                                                                                    ]
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "type": "hr"
+                                                                        },
+                                                                        {
+                                                                            "type": "div",
+                                                                            "class": "row-fluid wizard-actions",
+                                                                            "html": [
+                                                                                {
+                                                                                    "type": "buttons",
+                                                                                    "class": "btn btn-prev",
+                                                                                    "html": [
+                                                                                        {
+                                                                                            "type": "i",
+                                                                                            "class": "icon-arrow-left"
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "span",
+                                                                                            "html": "Prev"
+                                                                                        }
+                                                                                    ]
+                                                                                },
+
+                                                                                {
+                                                                                    "type": "buttons",
+                                                                                    "class": "btn btn-success btn-next",
+                                                                                    "html": [
+                                                                                        {
+                                                                                            "type": "span",
+                                                                                            "html": "Next"
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "i",
+                                                                                            "class": "icon-arrow-right icon-on-right"
+                                                                                        }
+                                                                                   ]
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+
+                                                    ]
+
+                                                }
+
+                                            ]
+
+                                        }
+                                    ]
+
+                                },
+                                {
+                                    "type": "div",
+                                    "id": "modal-wizard",
+                                    "class": "modal",
+                                    "html": [
+                                        {
+                                            "type": "div",
+                                            "class": "modal-dialog",
+                                            "html": [
+                                                {
+                                                    "type": "div",
+                                                    "class": "modal-content",
+                                                    "html": [
+                                                        {
+                                                            "type": "div",
+                                                            "class": "modal-header",
+                                                            "data-target": "#modal-step-contents",
+                                                            "html": [
+                                                                {
+                                                                    "type": "ul",
+                                                                    "class": "wizard-steps",
+                                                                    "html": [
+                                                                        {
+                                                                            "type": "li",
+                                                                            "data-target": "#modal-step1",
+                                                                            "class": "active",
+                                                                            "html": [
+                                                                                {
+                                                                                    "type": "span",
+                                                                                    "class": "step",
+                                                                                    "html": "1"
+                                                                                },
+                                                                                {
+                                                                                    "type": "span",
+                                                                                    "class": "title",
+                                                                                    "html": "Validation states"
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "type": "li",
+                                                                            "data-target": "#modal-step2",
+                                                                            "html": [
+                                                                                {
+                                                                                    "type": "span",
+                                                                                    "class": "step",
+                                                                                    "html": "2"
+                                                                                },
+                                                                                {
+                                                                                    "type": "span",
+                                                                                    "class": "title",
+                                                                                    "html": "Alerts"
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "type": "li",
+                                                                            "data-target": "#modal-step3",
+                                                                            "html": [
+                                                                                {
+                                                                                    "type": "span",
+                                                                                    "class": "step",
+                                                                                    "html": "3"
+                                                                                },
+                                                                                {
+                                                                                    "type": "span",
+                                                                                    "class": "title",
+                                                                                    "html": "Payment Info"
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "type": "li",
+                                                                            "data-target": "#modal-step4",
+                                                                            "html": [
+                                                                                {
+                                                                                    "type": "span",
+                                                                                    "class": "step",
+                                                                                    "html": "4"
+                                                                                },
+                                                                                {
+                                                                                    "type": "span",
+                                                                                    "class": "title",
+                                                                                    "html": "Other Info"
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "div",
+                                                            "class": "modal-body step-content",
+                                                            "id": "modal-step-contents",
+                                                            "html": [
+                                                                {
+                                                                    "type": "div",
+                                                                    "class": "step-pane active",
+                                                                    "id": "modal-step1",
+                                                                    "html": [
+                                                                        {
+                                                                            "type": "div",
+                                                                            "class": "center",
+                                                                            "html": [
+                                                                                {
+                                                                                    "type": "h4",
+                                                                                    "class": "blue",
+                                                                                    "html": "Step 1"
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "div",
+                                                                    "class": "step-pane",
+                                                                    "id": "modal-step2",
+                                                                    "html": [
+                                                                        {
+                                                                            "type": "div",
+                                                                            "class": "center",
+                                                                            "html": [
+                                                                                {
+                                                                                    "type": "h4",
+                                                                                    "class": "blue",
+                                                                                    "html": "Step 2"
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "div",
+                                                                    "class": "step-pane",
+                                                                    "id": "modal-step3",
+                                                                    "html": [
+                                                                        {
+                                                                            "type": "div",
+                                                                            "class": "center",
+                                                                            "html": [
+                                                                                {
+                                                                                    "type": "h4",
+                                                                                    "class": "blue",
+                                                                                    "html": "Step 3"
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "div",
+                                                                    "class": "step-pane",
+                                                                    "id": "modal-step4",
+                                                                    "html": [
+                                                                        {
+                                                                            "type": "div",
+                                                                            "class": "center",
+                                                                            "html": [
+                                                                                {
+                                                                                    "type": "h4",
+                                                                                    "class": "blue",
+                                                                                    "html": "Step 4"
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "type": "div",
+                                                            "class": "modal-footer wizard-actions",
+                                                            "html": [
+                                                                {
+                                                                    "type": "buttons",
+                                                                    "class": "btn btn-sm btn-prev",
+                                                                    "html": [
+                                                                        {
+                                                                            "type": "i",
+                                                                            "class": "icon-arrow-left"
+                                                                        },
+                                                                        {
+                                                                            "type": "span",
+                                                                            "html": "Prev"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "buttons",
+                                                                    "class": "btn btn-success btn-sm btn-next",
+                                                                    "html": [
+                                                                        {
+                                                                            "type": "span",
+                                                                            "html": "Next"
+                                                                        },
+                                                                        {
+                                                                            "type": "i",
+                                                                            "class": "icon-arrow-right icon-on-right"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "type": "button",
+                                                                    "class": "btn btn-danger btn-sm pull-left",
+                                                                    "data-dismiss": "modal",
+                                                                    "html": [
+                                                                        {
+                                                                            "type": "i",
+                                                                            "class": "icon-remove"
+                                                                        },
+                                                                        {
+                                                                            "type": "span",
+                                                                            "html": "Cancel"
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+
+                            ]
+
+                        }
+                    ]
+
+                }
+
+            ]
+
+        });
+
+
+        $('[data-rel=tooltip]').tooltip();
+
+        $(".select2").css('width', '200px').select2({
+            allowClear: true
+        })
+                .on('change', function () {
+                    $(this).closest('form').validate().element($(this));
+                });
+
+
+        var $validation = false;
+        $('#fuelux-wizard').ace_wizard().on('change',function (e, info) {
+            if (info.step == 1 && $validation) {
+                if (!$('#validation-form').valid()) return false;
+            }
+        }).on('finished',function (e) {
+                    bootbox.dialog({
+                        message: "Thank you! Your information was successfully saved!",
+                        buttons: {
+                            "success": {
+                                "label": "OK",
+                                "className": "btn-sm btn-primary"
+                            }
+                        }
+                    });
+                }).on('stepclick', function (e) {
+                    //return false;//prevent clicking on steps
+                });
+
+
+        $('#skip-validation').removeAttr('checked').on('click', function () {
+            $validation = this.checked;
+            if (this.checked) {
+                $('#sample-form').hide();
+                $('#validation-form').removeClass('hide');
+            } else {
+                $('#validation-form').addClass('hide');
+                $('#sample-form').show();
+            }
+        });
+
+
+        //documentation : http://docs.jquery.com/Plugins/Validation/validate
+
+
+        $.mask.definitions['~'] = '[+-]';
+        $('#phone').mask('(999) 999-9999');
+
+        jQuery.validator.addMethod("phone", function (value, element) {
+            return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
+        }, "Enter a valid phone number.");
+
+        $('#validation-form').validate({
+            errorElement: 'div',
+            errorClass: 'help-block',
+            focusInvalid: false,
+            rules: {
+                email: {
+                    required: true,
+                    email: true
+                },
+                password: {
+                    required: true,
+                    minlength: 5
+                },
+                password2: {
+                    required: true,
+                    minlength: 5,
+                    equalTo: "#password"
+                },
+                name: {
+                    required: true
+                },
+                phone: {
+                    required: true,
+                    phone: 'required'
+                },
+                url: {
+                    required: true,
+                    url: true
+                },
+                comment: {
+                    required: true
+                },
+                state: {
+                    required: true
+                },
+                platform: {
+                    required: true
+                },
+                subscription: {
+                    required: true
+                },
+                gender: 'required',
+                agree: 'required'
+            },
+
+            messages: {
+                email: {
+                    required: "Please provide a valid email.",
+                    email: "Please provide a valid email."
+                },
+                password: {
+                    required: "Please specify a password.",
+                    minlength: "Please specify a secure password."
+                },
+                subscription: "Please choose at least one option",
+                gender: "Please choose gender",
+                agree: "Please accept our policy"
+            },
+
+            invalidHandler: function (event, validator) { //display error alert on form submit
+                $('.alert-danger', $('.login-form')).show();
+            },
+
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error').addClass('has-info');
+                $(e).remove();
+            },
+
+            errorPlacement: function (error, element) {
+                if (element.is(':checkbox') || element.is(':radio')) {
+                    var controls = element.closest('div[class*="col-"]');
+                    if (controls.find(':checkbox,:radio').length > 1) controls.append(error);
+                    else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+                } else if (element.is('.select2')) {
+                    error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+                } else if (element.is('.chosen-select')) {
+                    error.insertAfter(element.siblings('[class*="chosen-container"]:eq(0)'));
+                } else error.insertAfter(element.parent());
+            },
+
+            submitHandler: function (form) {
+            },
+            invalidHandler: function (form) {
+            }
+        });
+
+
+        $('#modal-wizard .modal-header').ace_wizard();
+        $('#modal-wizard .wizard-actions .btn[data-dismiss=modal]').removeAttr('disabled');
+    });
+});
+</script>
